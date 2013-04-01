@@ -65,7 +65,7 @@ alias -g T='|tail'
 alias -g G='|grep'
 alias -g GI='|grep -i'
 # }}}
-# suffix alias {{{
+## suffix alias {{{
 alias -s rb=ruby
 case "${OSTYPE}" in
   cygwin)
