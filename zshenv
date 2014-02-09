@@ -3,7 +3,7 @@
 # vim: fileencoding=utf-8 foldmethod=marker
 #
 # Maintainer: Hiroyuki Tanaka <hryktnk@gmail.com>
-# Last Change: 2014-02-08.
+# Last Change: 2014-02-09.
 # License: Public Domain
 ############################################################
 
@@ -145,8 +145,9 @@ export EDITOR=vim
 export PAGER="less -cs"
 export LESSCHARSET=utf-8
 export JLESSCHARSET=utf-8
-# }}}
 
+export TEXINPUTS=~/src/tex/:${TEXINPUTS}
+# }}}
 ## zshenv.local {{{
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 # }}}
