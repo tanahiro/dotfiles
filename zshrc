@@ -3,7 +3,7 @@
 # vim: fileencoding=utf-8 foldmethod=marker
 #
 # Maintainer: Hiroyuki Tanaka <hryktnk@gmail.com>
-# Last Change: 2013-04-01.
+# Last Change: 2014-02-08.
 # License: Public Domain
 ############################################################
 
@@ -130,7 +130,7 @@ unsetopt ignore_eof
 ##  jobs {{{
 setopt auto_resume
 # }}}
-## others {{{
+##  others {{{
 setopt no_beep
 setopt no_list_beep
 setopt promptcr
@@ -181,4 +181,12 @@ umask 022
 # }}}
 ## local setting {{{
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+# }}}
+
+## rbenv {{{
+[ -d ~/.rbenv ] && eval "$(~/.rbenv/bin/rbenv init - )"
+# }}}
+
+## pyenv {{{
+[ -d ~/.pyenv ] && eval "$(~/.pyenv/bin/pyenv init - )"
 # }}}

@@ -3,7 +3,7 @@
 # vim: fileencoding=utf-8 foldmethod=marker
 #
 # Maintainer: Hiroyuki Tanaka <hryktnk@gmail.com>
-# Last Change: 2013-05-25.
+# Last Change: 2014-02-08.
 # License: Public Domain
 ############################################################
 
@@ -12,19 +12,22 @@ case "${OSTYPE}" in
   darwin*)
     path=(
       ~/usr/bin
-      ~/.gem/ruby/current/bin
+      ~/.rbenv/bin
+      ~/.pyenv/bin
+      #~/.gem/ruby/current/bin
       /usr/local/bin
       /opt/local/bin
       /usr/bin
       /bin
       /usr/X11/bin
     )
-    HOME=/Users/$USER
     ;;
   linux*)
     path=(
       ~/usr/bin
-      ~/.gem/ruby/current/bin
+      #~/.gem/ruby/current/bin
+      ~/.rbenv/bin
+      ~/.pyenv/bin
       /usr/local/bin
       /usr/bin
       /bin
@@ -70,6 +73,13 @@ esac
 ## }}}
 typeset -U path cdpath fpath manpath
 
+## HOME{{{
+case "${OSTYPE}" in
+  darwin*)
+    HOME=/Users/$USER
+    ;;
+esac
+# }}}
 ## TARGETOS {{{
 case "${OSTYPE}" in
   darwin*)
@@ -127,16 +137,6 @@ case "${OSTYPE}" in
 /usr/share/texmf-texlive/fonts/type1/urw/symbol:\
 /usr/share/texmf-texlive/fonts/type1/urw/courier
   ;;
-esac
-# }}}
-## ruby {{{
-case "${OSTYPE}" in
-  darwin*)
-    export GEM_HOME=${HOME}/.gem/ruby/current
-    ;;
-  linux*)
-    export GEM_HOME=${HOME}/.gem/ruby/current
-    ;;
 esac
 # }}}
 ## Other environment variables {{{
