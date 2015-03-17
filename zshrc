@@ -131,7 +131,7 @@ unsetopt nomatch
 # }}}
 ##  input/output {{{
 setopt correct
-setopt no_clobber
+setopt clobber
 setopt correct_all
 unsetopt flow_control
 unsetopt ignore_eof
