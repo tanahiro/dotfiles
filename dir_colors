@@ -51,6 +51,7 @@ TERM screen-w
 TERM screen.Eterm
 TERM screen.rxvt
 TERM screen.linux
+TERM screen.xterm-new
 TERM terminator
 TERM vt100
 TERM xterm

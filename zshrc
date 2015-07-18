@@ -90,9 +90,18 @@ case ${UID} in
   PROMPT2="%{${fg[red]}%}%_->%{${reset_color}%}"
   ;;
 *)
-  PROMPT="%j [%{${fg[cyan]}%}%U%m%{${reset_color}%}:%~%u]% %E
+  case ${TERM} in
+    screen*)
+      PROMPT="%j [%{${fg[cyan]}%}%U${STY}%{${reset_color}%}:%~%u]% %E
 %h%#>"
-  PROMPT2="%_->"
+      PROMPT2="%_->"
+      ;;
+    *)
+      PROMPT="%j [%{${fg[cyan]}%}%U%m%{${reset_color}%}:%~%u]% %E
+%h%#>"
+      PROMPT2="%_->"
+      ;;
+  esac
   ;;
 esac
 # }}}
@@ -122,7 +131,7 @@ unsetopt nomatch
 # }}}
 ##  input/output {{{
 setopt correct
-setopt no_clobber
+setopt clobber
 setopt correct_all
 unsetopt flow_control
 unsetopt ignore_eof
