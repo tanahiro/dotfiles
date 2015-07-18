@@ -3,7 +3,7 @@
 # vim: fileencoding=utf-8 foldmethod=marker
 #
 # Maintainer: Hiroyuki Tanaka <hryktnk@gmail.com>
-# Last Change: 2014-02-09.
+# Last Change: 2014-12-07.
 # License: Public Domain
 ############################################################
 
@@ -20,6 +20,7 @@ case "${OSTYPE}" in
       /usr/bin
       /bin
       /usr/X11/bin
+      /usr/sbin
     )
     ;;
   linux*)
