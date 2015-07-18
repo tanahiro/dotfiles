@@ -148,6 +148,9 @@ export JLESSCHARSET=utf-8
 
 export TEXINPUTS=~/src/tex/:${TEXINPUTS}
 # }}}
+## pyenv {{{
+[ -d ~/.pyenv ] && export PYENV_ROOT=$HOME/.pyenv
+# }}}
 ## zshenv.local {{{
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 # }}}
