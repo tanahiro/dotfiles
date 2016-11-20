@@ -10,5 +10,7 @@
 	status = auto
 	branch = auto
 [core]
-	excludesfile = /home/tanahiro/.gitignore
+	excludesfile = ~/.gitignore
   quotepath = false
+[include]
+  path = ~/.gitconfig.local
