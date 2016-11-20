@@ -1,0 +1,14 @@
+[user]
+	name = Hiroyuki Tanaka
+	email = hryktnk@gmail.com
+[alias]
+  ci = commit -a
+  st = status
+  ls = ls-files
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[core]
+	excludesfile = /home/tanahiro/.gitignore
+  quotepath = false
