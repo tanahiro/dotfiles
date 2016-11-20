@@ -3,7 +3,6 @@
 # vim: fileencoding=utf-8 foldmethod=marker
 #
 # Maintainer: Hiroyuki Tanaka <hryktnk@gmail.com>
-# Last Change: 2014-12-07.
 # License: Public Domain
 ############################################################
 
@@ -14,24 +13,25 @@ case "${OSTYPE}" in
       ~/usr/bin
       ~/.rbenv/bin
       ~/.pyenv/bin
-      #~/.gem/ruby/current/bin
       /usr/local/bin
       /opt/local/bin
       /usr/bin
       /bin
       /usr/X11/bin
       /usr/sbin
+      /sbin
     )
     ;;
   linux*)
     path=(
       ~/usr/bin
-      #~/.gem/ruby/current/bin
       ~/.rbenv/bin
       ~/.pyenv/bin
       /usr/local/bin
       /usr/bin
       /bin
+      /usr/sbin
+      /sbin
     )
     ;;
   cygwin)
@@ -72,8 +72,9 @@ case "${OSTYPE}" in
     ;;
 esac
 ## }}}
+## typeset {{{
 typeset -U path cdpath fpath manpath
-
+# }}}
 ## HOME{{{
 case "${OSTYPE}" in
   darwin*)
@@ -155,4 +156,3 @@ export TEXINPUTS=~/src/tex/:${TEXINPUTS}
 ## zshenv.local {{{
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 # }}}
-

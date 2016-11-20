@@ -26,10 +26,10 @@ zle -N history-beginning-search-forward-end history-search-end
 ## alias {{{
 case "${OSTYPE}" in
   darwin*)
-    lscommand="ls -F -G -v"
+    lscommand="gls -F --color=auto -v --quoting-style=literal"
   ;;
   linux*|cygwin)
-    lscommand="ls -F --color=always -v"
+    lscommand="ls -F --color=auto -v"
   ;;
 esac
 alias ls="$lscommand"
@@ -67,6 +67,7 @@ alias -g GI='|grep -i'
 # }}}
 ## suffix alias {{{
 alias -s rb=ruby
+
 case "${OSTYPE}" in
   cygwin)
     alias -s html="cygstart firefox"
@@ -76,6 +77,7 @@ esac
 ## color {{{
 case "${OSTYPE}" in
   darwin*)
+    [ -r ~/.dir_colors ] && eval `gdircolors ~/.dir_colors`
   ;;
   linux*|cygwin)
     [ -r ~/.dir_colors ] && eval `dircolors ~/.dir_colors`
@@ -152,7 +154,8 @@ bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end 
 # }}}
 ## completion in sudo {{{
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+zstyle ':completion:*:sudo:*' command-path\
+  /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 ## }}}
 ## terminal title {{{
@@ -191,11 +194,17 @@ umask 022
 ## local setting {{{
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 # }}}
-
 ## rbenv {{{
 [ -d ~/.rbenv ] && eval "$(~/.rbenv/bin/rbenv init - )"
 # }}}
-
 ## pyenv {{{
 [ -d ~/.pyenv ] && eval "$(~/.pyenv/bin/pyenv init - )"
+# }}}
+# tmux {{{
+function tmux_ver() {
+  local need_version=$1
+  local current_version=$(tmux -V | awk '{print $2}')
+
+  [[ $(echo "$current_version > $need_version" | bc) != 0 ]]
+}
 # }}}
