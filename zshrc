@@ -198,7 +198,7 @@ umask 022
 [ -d ~/.rbenv ] && eval "$(~/.rbenv/bin/rbenv init - )"
 # }}}
 ## pyenv {{{
-[ -d ~/.pyenv ] && eval "$(~/.pyenv/bin/pyenv init - )"
+[ -d ~/.pyenv ] && eval "$(pyenv init - )"
 # }}}
 # tmux {{{
 function tmux_ver() {
