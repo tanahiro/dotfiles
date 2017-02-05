@@ -1,16 +1,16 @@
 [user]
-	name = Hiroyuki Tanaka
-	email = hryktnk@gmail.com
+  name = Hiroyuki Tanaka
+  email = hryktnk@gmail.com
 [alias]
   ci = commit -a
   st = status
   ls = ls-files
 [color]
-	diff = auto
-	status = auto
-	branch = auto
+  diff = auto
+  status = auto
+  branch = auto
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
   quotepath = false
 [include]
   path = ~/.gitconfig.local
