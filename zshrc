@@ -3,7 +3,7 @@
 # vim: fileencoding=utf-8 foldmethod=marker
 #
 # Maintainer: Hiroyuki Tanaka <hryktnk@gmail.com>
-# Last Change: 2014-02-08.
+# Last Change: 2017-09-07.
 # License: Public Domain
 ############################################################
 
@@ -154,26 +154,26 @@ case "${TERM}" in
   kterm*|xterm*)
     if [[ -n $STY ]]; then  ## screen
       preexec(){
-        printf "\ek$1\e\\"  ## window title (latest command)
+        print -Pn "\ek$1\e\\"  ## window title (latest command)
       }
       precmd(){
         ## title on terminal
-        printf "\033P\033]0;@${HOST%%.*}:${PWD}\007\033\\"
+        print -Pn "\033P\033]0;@${HOST%%.*}:${PWD}\007\033\\"
       }
     else
     precmd(){
-      printf "\e]0;@${HOST%%.*}:${PWD}\a"
+      print -Pn "\e]0;@${HOST%%.*}:${PWD}\a"
     }
     fi
     ;;
   screen*)
     preexec(){
-      printf "\ek$1\e\\"  ## window title (latest command)
+      print -Pn "\ek$1\e\\"  ## window title (latest command)
     }
     precmd(){
       ## title on terminal
       #printf "\033P\033]0;@${HOST%%.*}:${PWD}\007\033\\"
-      printf "\e]0;@${HOST%%.*}:${PWD}\a"
+      print -Pn "\e]0;@${HOST%%.*}:${PWD}\a"
     }
     ;;
 esac
