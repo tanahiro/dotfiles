@@ -5,6 +5,7 @@
   ci = commit -a
   st = status
   ls = ls-files
+  show-commit-hash = log --pretty=format:'%H' -n 1
 [color]
   diff = auto
   status = auto
