@@ -18,6 +18,7 @@ case "${OSTYPE}" in
       /usr/bin
       /bin
       /usr/X11/bin
+      /usr/local/sbin
       /usr/sbin
       /sbin
     )
