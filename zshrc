@@ -190,13 +190,5 @@ umask 022
 [ -d ~/.rbenv ] && eval "$(~/.rbenv/bin/rbenv init - )"
 # }}}
 ## pyenv {{{
-[ -d ~/.pyenv ] && eval "$(pyenv init - )"
-# }}}
-# tmux {{{
-function tmux_ver() {
-  local need_version=$1
-  local current_version=$(tmux -V | awk '{print $2}')
-
-  [[ $(echo "$current_version > $need_version" | bc) != 0 ]]
-}
+[ -d ~/.pyenv ] && eval "$(pyenv init - --no-rehash)"
 # }}}
