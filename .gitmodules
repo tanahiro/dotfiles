@@ -1,3 +1,6 @@
 [submodule "dircolors-solarized"]
 	path = dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
+[submodule "vim-plugins"]
+	path = vim-plugins
+	url = https://github.com/tanahiro/vim-plugins
