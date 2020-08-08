@@ -3,6 +3,7 @@ require "fileutils"
 
 DEFAULT_TARGETS = [
   "git",
+  "tmux",
   "vi",
   "zsh"
 ]
@@ -69,6 +70,15 @@ def deploy_git
     File.join(src_dir, "gitignore"),
   ]
   dst = src.map {|s| to_dot_file(s)}
+
+  deploy(src, dst)
+end
+
+def deploy_tmux
+  print("\nDeploying git configuration files...")
+
+  src = [ File.join(__dir__, "tmux.conf") ]
+  dst = src.map {|s| to_dot_file(s) }
 
   deploy(src, dst)
 end
