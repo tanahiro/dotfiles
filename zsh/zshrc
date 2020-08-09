@@ -1,9 +1,9 @@
 ############################################################
 # zshrc
-# vim: fileencoding=utf-8 foldmethod=marker
+#
+# vim: foldmethod=marker
 #
 # Maintainer: Hiroyuki Tanaka <hryktnk@gmail.com>
-# Last Change: 2017-09-07.
 # License: Public Domain
 ############################################################
 
@@ -13,10 +13,10 @@ SAVEHIST=5000
 HISTSIZE=5000
 # }}}
 ## functions {{{
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
-autoload -U colors
+autoload -Uz colors
 colors
 
 autoload history-search-end
@@ -54,7 +54,6 @@ alias grep='grep --color=always'
 case "${OSTYPE}" in
   darwin*)
   alias gvim='open -a macvim'
-  alias brew='PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew'
   ;;
 esac
 # }}}
@@ -127,8 +126,8 @@ unsetopt nomatch
 setopt correct
 setopt clobber
 setopt correct_all
+setopt ignore_eof
 unsetopt flow_control
-unsetopt ignore_eof
 # }}}
 ##  jobs {{{
 setopt auto_resume
@@ -183,12 +182,15 @@ esac
 ## default permissions
 umask 022
 # }}}
-## local setting {{{
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-# }}}
 ## rbenv {{{
 [ -d ~/.rbenv ] && eval "$(~/.rbenv/bin/rbenv init - )"
 # }}}
 ## pyenv {{{
 [ -d ~/.pyenv ] && eval "$(pyenv init - --no-rehash)"
+# }}}
+## oh-my-zsh {{{
+[ -n $ZSH ] && source $ZSH/oh-my-zsh.sh
+# }}}
+## local setting {{{
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 # }}}

@@ -83,6 +83,23 @@ case "${OSTYPE}" in
     ;;
 esac
 # }}}
+## oh-my-zsh and plugins{{{
+[ -d ~/.zsh/ohmyzsh ] && export ZSH=${HOME}/.zsh/ohmyzsh
+
+if [[ -n $ZSH ]]; then
+  plugins=(
+    git
+    bundler
+    gem
+    rake
+    ruby
+  )
+fi
+case "${OSTYPE}" in
+  darwin*)
+    plugins+=(brew)
+esac
+# }}}
 ## TARGETOS {{{
 case "${OSTYPE}" in
   darwin*)

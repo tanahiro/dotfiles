@@ -106,6 +106,8 @@ def deploy_zsh
   print("\nDeploying zsh configuration files...")
   zsh_dir = File.join(__dir__, "zsh")
 
+  mkdir(File.join(@options[:dir], ".zsh"))
+
   src = [
     File.join(zsh_dir, "zshrc"),
     File.join(zsh_dir, "zshenv")
@@ -115,6 +117,9 @@ def deploy_zsh
 
   src << File.join(__dir__, "dircolors-solarized", "dircolors.ansi-light")
   dst << File.join(@options[:dir], ".dir_colors")
+
+  src << File.join(__dir__, "zsh", "ohmyzsh")
+  dst << File.join(@options[:dir], ".zsh", "ohmyzsh")
 
   deploy(src, dst)
 end
