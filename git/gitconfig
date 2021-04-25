@@ -13,5 +13,8 @@
 [core]
   excludesfile = ~/.gitignore
   quotepath = false
+  pager = "less -X -F"
 [include]
   path = ~/.gitconfig.local
+
+# vim: ft=.gitconfig
