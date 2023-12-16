@@ -168,8 +168,31 @@ export JLESSCHARSET=utf-8
 
 export TEXINPUTS=~/src/tex/:${TEXINPUTS}
 # }}}
-## pyenv {{{
+## python {{{
 [ -d ~/.pyenv ] && export PYENV_ROOT=$HOME/.pyenv
+
+export PIPENV_PYTHON=${PYENV_ROOT}/shims/python
+# }}}
+## Go {{{
+export GOPATH=${HOME}/src/go
+export GOENV_ROOT=${HOME}/.goenv
+export GOENV_DISABLE_GOPATH=1
+#export GOPRIVATE=
+# }}}
+## deno {{{
+export DEMO_TLS_CA_STORE=system
+
+if [[ -f /etc/ssl/certs/ca-certificates.crt ]]; then
+  export DENO_CERT=/etc/ssl/certs/ca-certificates.crt
+fi
+# }}}
+## WSL {{{
+if [[ -d /c/ ]]; then
+  WINIP=`/c/Windows/System32/netsh.exe interface ip show address "vEthernet (WSL)"|\
+    grep "IP Address" | awk '{gsub(" ","",$0); split($0,a,":");print a[2]'`
+  WINIP=$(echo ${WINIP} | tr -d '\r')
+  export WINIP
+fi
 # }}}
 ## zshenv.local {{{
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local

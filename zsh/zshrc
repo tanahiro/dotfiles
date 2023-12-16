@@ -85,6 +85,15 @@ case "${OSTYPE}" in
 esac
 ## }}}
 ## prompt {{{
+function git_branch_name() {
+  branch=$(git branch --show-current 2> /dev/null)
+  if [[ -z "${branch}" ]]; then
+    :
+  else
+    echo '- ('${branch}')'
+  fi
+}
+
 case ${UID} in 
 0)
   PROMPT="%j [%{${fg[cyan]}%}%U%m%{${reset_color}%}:%~%u]% %E
@@ -92,11 +101,12 @@ case ${UID} in
   PROMPT2="%{${fg[red]}%}%_->%{${reset_color}%}"
   ;;
 *)
-  PROMPT="%j [%{${fg[cyan]}%}%U%m%{${reset_color}%}:%~%u]% %E
-%h%#>"
+  PROMPT='%j [%{${fg[cyan]}%}%U%m%{${reset_color}%}:%~%u]% %E %{${fg[yellow]}%}$(git_branch_name)%{${reset_color}%}
+%h%#>'
   PROMPT2="%_->"
   ;;
 esac
+
 # }}}
 ## options {{{
 ##  history {{{
@@ -122,22 +132,25 @@ setopt extended_glob
 setopt numeric_glob_sort
 unsetopt nomatch
 # }}}
-##  input/output {{{
+# }}}
+## input/output {{{
 setopt correct
 setopt clobber
 setopt correct_all
 setopt ignore_eof
 unsetopt flow_control
 # }}}
-##  jobs {{{
+## jobs {{{
 setopt auto_resume
 # }}}
-##  others {{{
+## others {{{
 setopt no_beep
 setopt no_list_beep
 setopt promptcr
 setopt print_eight_bit
-# }}}
+
+# Show git branch name in the prompt
+#setopt prompt_subst
 # }}}
 ## bind key {{{
 bindkey -e
@@ -188,9 +201,71 @@ umask 022
 ## pyenv {{{
 [ -d ~/.pyenv ] && eval "$(pyenv init - --no-rehash)"
 # }}}
+## goenv {{{
+if [[ -d "${GOENV_ROOT}" ]]; then
+  eval "$(goenv init - --no-rehash)"
+fi
+# }}}
+## deno {{{
+[ -d ~/.demo ] && export PATH=${PATH}:${HOME}/.deno/bin
+# }}}
 ## oh-my-zsh {{{
 [ -n $ZSH ] && source $ZSH/oh-my-zsh.sh
 # }}}
 ## local setting {{{
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+# }}}
+## WSL {{{
+if [[ "$(umask)" = "0000" ]]; then
+  umask 0022
+fi
+
+start () {
+  if [ -z "$1" ]; then
+    /c/Windows/explorer.exe
+  else
+    /c/Windows/explorer.exe `wslpath -w "$1"`
+  fi
+}
+# }}}
+## ssh-agent {{{
+run_ssh_agent() {
+  local current_user=`whoami`
+  local -a ssh_agent_pid
+  ssh_agent_pid=(`pgrep -u ${current_user} -d " " ssh-agent`)
+
+  if [[ -n ${ssh_agent_pid} ]]; then
+    local ssh_agent_tmp
+
+    for pid in ${ssh_agent_pid}; do
+      ssh_agent_tmp=`find /tmp/ -name "agent.$(($pid - 1))" 2> /dev/null`
+
+      if [[ -n ${ssh_agent_tmp} ]]; then
+        export SSH_AUTH_SOCK=${ssh_agent_tmp}
+        export SSH_AGENT_PID=${pid}
+
+        echo SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
+        echo SSH_AGENT_PID=${SSH_AGENT_PID}
+
+        break;
+      fi
+    done
+
+    echo "${ssh_agent_tmp}"
+    if [[ -z "${ssh_agent_tmp}" ]]; then
+      eval `ssh-agent -s`
+    fi
+  else
+    eval `ssh-agent -s`
+  fi
+}
+# }}}
+## docker {{{
+docker-rm-exited() {
+  docker ps -a -f status=exited -q | xargs -r docker rm
+}
+
+docker-rmi-none() {
+  docker images -f dangling=true -q | xargs -r docker rmi
+}
 # }}}
