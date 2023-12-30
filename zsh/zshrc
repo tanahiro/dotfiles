@@ -7,6 +7,10 @@
 # License: Public Domain
 ############################################################
 
+# oh-my-zsh {{{
+# Not to overwrite prefered conifg
+[ -n $ZSH ] && source $ZSH/oh-my-zsh.sh
+# }}}
 ## history {{{
 HISTFILE=~/.zhistory
 SAVEHIST=5000
@@ -208,9 +212,6 @@ fi
 # }}}
 ## deno {{{
 [ -d ~/.demo ] && export PATH=${PATH}:${HOME}/.deno/bin
-# }}}
-## oh-my-zsh {{{
-[ -n $ZSH ] && source $ZSH/oh-my-zsh.sh
 # }}}
 ## local setting {{{
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
