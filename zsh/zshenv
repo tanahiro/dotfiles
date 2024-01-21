@@ -7,43 +7,23 @@
 ############################################################
 
 ## path {{{
-case "${OSTYPE}" in
-  darwin*)
-    path=(
-      ~/usr/bin
-      ~/.rbenv/bin
-      ~/.pyenv/bin
-      /usr/local/bin
-      /opt/local/bin
-      /usr/bin
-      /bin
-      /usr/X11/bin
-      /usr/local/sbin
-      /usr/sbin
-      /sbin
+path=(
+    /usr/local/bin
+    /usr/bin
+    /bin
+    /usr/sbin
+    /sbin
     )
-    ;;
-  linux*)
-    path=(
-      ~/usr/bin
-      ~/.rbenv/bin
-      ~/.pyenv/bin
-      /usr/local/bin
-      /usr/bin
-      /bin
-      /usr/sbin
-      /sbin
-    )
-    ;;
-  cygwin)
-    path=(
-      ~/usr/bin
-      /usr/local/bin
-      /usr/bin
-      /bin
-    )
-    ;;
-esac
+
+optional_path=(
+  /opt/homebrew/bin
+  ~/.rbenv/bin
+  ~/.pyenv/bin
+)
+
+for d in $optional_path; do
+  PATH="$d":$PATH
+done
 # }}}
 ## manpath {{{
 case "${OSTYPE}" in
@@ -188,7 +168,7 @@ fi
 # }}}
 ## WSL {{{
 if [[ -d /c/ ]]; then
-  WINIP=`/c/Windows/System32/netsh.exe interface ip show address "vEthernet (WSL)"|\
+  WINIP=`/mnt/c/Windows/System32/netsh.exe interface ip show address "vEthernet (WSL)"|\
     grep "IP Address" | awk '{gsub(" ","",$0); split($0,a,":");print a[2]'`
   WINIP=$(echo ${WINIP} | tr -d '\r')
   export WINIP
