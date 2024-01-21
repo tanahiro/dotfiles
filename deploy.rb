@@ -85,19 +85,13 @@ end
 
 def deploy_vi
   print("\nDeploying vi configuration files...")
-  plugin_dir = File.join(__dir__, "vim-plugins")
-  dein_dir = File.join(@options[:dir], ".vim", "dein")
-
-  mkdir(dein_dir)
+  src_dir = File.join(__dir__, "vim_config")
 
   src = [
-    File.join(plugin_dir, "tanahiro", "vimrc"),
-    File.join(plugin_dir, "tanahiro", "gvimrc")
+    File.join(src_dir, "vimrc"),
+    File.join(src_dir, "gvimrc")
   ]
   dst = src.map {|s| to_dot_file(s)}
-
-  src << plugin_dir
-  dst << File.join(dein_dir, "repos")
 
   deploy(src, dst)
 end

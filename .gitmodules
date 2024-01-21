@@ -1,9 +1,9 @@
 [submodule "dircolors-solarized"]
 	path = dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
-[submodule "vim-plugins"]
-	path = vim-plugins
-	url = https://github.com/tanahiro/vim-plugins
 [submodule "zsh/ohmyzsh"]
 	path = zsh/ohmyzsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "vim_config"]
+	path = vim_config
+	url = git@github.com:tanahiro/vim_config.git
