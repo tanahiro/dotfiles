@@ -89,13 +89,23 @@ case "${OSTYPE}" in
 esac
 ## }}}
 ## prompt {{{
-function git_branch_name() {
-  branch=$(git branch --show-current 2> /dev/null)
+function git_repo_info() {
+  local branch=$(git branch --show-current 2> /dev/null)
+
   if [[ -z "${branch}" ]]; then
-    :
-  else
-    echo '- ('${branch}')'
+    return
   fi
+
+  local status_symbol=""
+  local gs=`git status 2> /dev/null`
+
+  if [[ -n `echo "${gs}" | grep "^Changes not staged for commit"` ]]; then
+    status_symbol="*"
+  elif [[ -n `echo "${gs}" | grep "^Changes to be committed"` ]]; then
+    status_symbol="+"
+  fi
+
+  echo '- ('${branch}${status_symbol}')'
 }
 
 case ${UID} in 
@@ -105,11 +115,13 @@ case ${UID} in
   PROMPT2="%{${fg[red]}%}%_->%{${reset_color}%}"
   ;;
 *)
-  PROMPT='%j [%{${fg[cyan]}%}%U%m%{${reset_color}%}:%~%u]% %E %{${fg[yellow]}%}$(git_branch_name)%{${reset_color}%}
+  PROMPT='%j [%F{020}%K{190}%U%m%{${reset_color}%}%k%f:%~%u]% %E %{${fg[yellow]}%}$(git_repo_info)%{${reset_color}%}
 %h%#>'
   PROMPT2="%_->"
   ;;
 esac
+
+RPROMPT=''
 
 # }}}
 ## options {{{
@@ -152,9 +164,6 @@ setopt no_beep
 setopt no_list_beep
 setopt promptcr
 setopt print_eight_bit
-
-# Show git branch name in the prompt
-#setopt prompt_subst
 # }}}
 ## bind key {{{
 bindkey -e
