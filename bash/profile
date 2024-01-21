@@ -1,0 +1,26 @@
+# vim: foldmethod=marker syntax=sh
+
+# ssh agent {{{
+agent_load_env() { test -f "$env" && . "$env" >| /dev/null; }
+
+agent_start() {
+  (umask 077; ssh-agent >| $"env")
+  . "$env" >| /dev/null 
+}
+
+run_ssh_agent() {
+  env=~/.ssh/agent.env
+
+  agent_load_env
+  agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+  if [ ! "${SSH_AUTH_SOCK}" ] || [ ${agent_run_state} = 2 ]; then
+    agent_start
+  fi
+
+  echo SSH_AUTH_SOCKE=${SSH_AUTH_SOCK}
+  echo SSH_AGENT_PID=${SSH_AGENT_PID}
+
+  unset env
+}
+# }}}
