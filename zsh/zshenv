@@ -53,6 +53,11 @@ case "${OSTYPE}" in
     ;;
 esac
 ## }}}
+## term {{{
+if [[ -n "${TMUX}" ]]; then
+  export TERM=xterm-256color
+fi
+# }}}
 ## typeset {{{
 typeset -U path cdpath fpath manpath
 # }}}
