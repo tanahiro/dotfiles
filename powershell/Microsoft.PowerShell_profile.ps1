@@ -6,23 +6,6 @@ Set-PSReadLineKeyHandler -Key 'Ctrl+p' -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key 'Ctrl+n' -Function HistorySearchForward
 Set-PsReadlineOption -BellStyle None
 
-# Setting console colors
-# from cmd-color-solarlized
-
-# Host Foreground
-$Host.PrivateData.ErrorForegroundColor = 'Red'
-$Host.PrivateData.WarningForegroundColor = 'Yellow'
-$Host.PrivateData.DebugForegroundColor = 'Green'
-$Host.PrivateData.VerboseForegroundColor = 'Blue'
-$Host.PrivateData.ProgressForegroundColor = 'Gray'
-
-# Host Gackground
-$Host.PrivateData.ErrorBackgroundColor = 'White'
-$Host.PrivateData.WarningBackgroundColor = 'White'
-$Host.PrivateData.DebugBackgroundColor = 'White'
-$Host.PrivateData.VerboseBackgroundColor = 'White'
-$Host.PrivateData.ProgressBackgroundColor = 'Cyan'
-
 # PS > [Enum]::GetValues([ConsoleColor])
 if (Get-Module -ListAvailable -Name "PSReadline") {
   $options = Get-PSReadlineOption
@@ -45,8 +28,18 @@ if (Get-Module -ListAvailable -Name "PSReadline") {
   Clear-Variable -name "options"
 }
 
+if ($PSStyle) {
+  $PSStyle.FileInfo.Directory = "`e[38;2;0;128;128m"
+  #$PSStyle.FileInfo.Executable =
+  #$PSStyle.FileInfo.SymbolicLink  = ""
+  #$PSStyle.FileInfo.Extension.Clear()
+  #$PSStyle.Formatting.TableHeader = ""
+  #$PSStyle.Formatting.FormatAccent = ""
+}
+
 # Alias
-new-item alias:gvim -value "C:/opt/vim/vim8/gvim.exe" | Out-Null
+new-item alias:gvim -value "C:/opt/vim//gvim.exe" | Out-Null
+new-item alias:vi -value "C:/opt/vim//vim.exe" | Out-Null
 new-alias which get-command
 new-alias open invoke-item
 

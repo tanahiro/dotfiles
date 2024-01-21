@@ -80,7 +80,7 @@ def deploy_git
 end
 
 def deploy_tmux
-  print("\nDeploying git configuration files...")
+  print("\nDeploying tmux configuration files...")
 
   src = [File.join(__dir__, 'tmux.conf')]
   dst = src.map { |s| to_dot_file(s) }
@@ -103,32 +103,34 @@ def deploy_vi
   when /darwin/, /linux/
     dst = src.map { |s| to_dot_file(s) }
   when /mingw/
-    dst = src.map { |s| File.join(dir, "_#{File.basename(s)}") }
+    dst = src.map { |s| File.join(@options[:dir], "_#{File.basename(s)}") }
   end
 
   deploy(src, dst)
 end
 
 def deploy_zsh
-  print("\nDeploying zsh configuration files...")
-  zsh_dir = File.join(__dir__, 'zsh')
+  if OS !~ /mingw/
+    print("\nDeploying zsh configuration files...")
+    zsh_dir = File.join(__dir__, 'zsh')
 
-  mkdir(File.join(@options[:dir], '.zsh'))
+    mkdir(File.join(@options[:dir], '.zsh'))
 
-  src = [
-    File.join(zsh_dir, 'zshrc'),
-    File.join(zsh_dir, 'zshenv'),
-  ]
+    src = [
+      File.join(zsh_dir, 'zshrc'),
+      File.join(zsh_dir, 'zshenv'),
+    ]
 
-  dst = src.map { |s| to_dot_file(s) }
+    dst = src.map { |s| to_dot_file(s) }
 
-  src << File.join(__dir__, 'dircolors-solarized', 'dircolors.ansi-light')
-  dst << File.join(@options[:dir], '.dir_colors')
+    src << File.join(__dir__, 'dircolors-solarized', 'dircolors.ansi-light')
+    dst << File.join(@options[:dir], '.dir_colors')
 
-  src << File.join(__dir__, 'zsh', 'ohmyzsh')
-  dst << File.join(@options[:dir], '.zsh', 'ohmyzsh')
+    src << File.join(__dir__, 'zsh', 'ohmyzsh')
+    dst << File.join(@options[:dir], '.zsh', 'ohmyzsh')
 
-  deploy(src, dst)
+    deploy(src, dst)
+  end
 end
 
 def execute(target)
