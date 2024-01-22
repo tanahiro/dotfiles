@@ -17,6 +17,7 @@ path=(
 
 optional_path=(
   /opt/homebrew/bin
+  ~/.deno/bin
   ~/.rbenv/bin
   ~/.pyenv/bin
 )
