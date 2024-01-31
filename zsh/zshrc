@@ -55,6 +55,8 @@ alias ssh='ssh -Y'
 
 alias grep='grep --color=always'
 
+alias tmux='tmux -u'
+
 case "${OSTYPE}" in
   darwin*)
   alias gvim='open -a macvim'
