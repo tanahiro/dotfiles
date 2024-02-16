@@ -20,4 +20,7 @@
 [include]
   path = ~/.gitconfig.local
 
+[alias]
+  force-push = push --force-with-lease --force-if-includes
+
 # vim: ft=.gitconfig
