@@ -11,6 +11,37 @@
 # Not to overwrite prefered conifg
 [ -n $ZSH ] && source $ZSH/oh-my-zsh.sh
 # }}}
+# path {{{
+# On MacOS, PATH is updated by /usr/libexec/path_helper after loading .zshenv
+# so PATH is configured here.
+local path_candidates=(
+  ${HOME}/.deno/bin
+  ${HOME}/.rbenv/bin
+  ${HOME}/.pyenv/bin
+  ${HOME}/.nodenv/bin
+  ${GOPATH}/bin
+  /opt/homebrew/bin
+  /opt/homebrew/sbin
+  /usr/local/bin
+  /usr/local/sbin
+  /usr/bin
+  /usr/sbin
+  /bin
+  /sbin
+  /usr/games
+  /usr/local/games
+  /snap/bin
+)
+
+local user_path
+
+for d in ${path_candidates}; do
+  if [ -d "${d}" ]; then
+    user_path="${user_path}:${d}"
+  fi
+done
+PATH=${user_path}:$PATH
+# }}}
 ## history {{{
 HISTFILE=~/.zhistory
 SAVEHIST=5000
@@ -220,9 +251,6 @@ umask 022
 if [[ -d "${GOENV_ROOT}" ]]; then
   eval "$(goenv init - --no-rehash)"
 fi
-# }}}
-## deno {{{
-[ -d ~/.demo ] && export PATH=${PATH}:${HOME}/.deno/bin
 # }}}
 ## local setting {{{
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

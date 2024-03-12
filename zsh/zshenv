@@ -6,26 +6,6 @@
 # License: Public Domain
 ############################################################
 
-## path {{{
-path=(
-    /usr/local/bin
-    /usr/bin
-    /bin
-    /usr/sbin
-    /sbin
-    )
-
-optional_path=(
-  /opt/homebrew/bin
-  ~/.deno/bin
-  ~/.rbenv/bin
-  ~/.pyenv/bin
-)
-
-for d in $optional_path; do
-  PATH="$d":$PATH
-done
-# }}}
 ## manpath {{{
 case "${OSTYPE}" in
   darwin*)
@@ -160,7 +140,7 @@ export TEXINPUTS=~/src/tex/:${TEXINPUTS}
 export PIPENV_PYTHON=${PYENV_ROOT}/shims/python
 # }}}
 ## Go {{{
-export GOPATH=${HOME}/src/go
+export GOPATH=${HOME}/src/golang
 export GOENV_ROOT=${HOME}/.goenv
 export GOENV_DISABLE_GOPATH=1
 #export GOPRIVATE=
@@ -183,3 +163,4 @@ fi
 ## zshenv.local {{{
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 # }}}
+#
