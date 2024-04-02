@@ -11,7 +11,7 @@
 # Not to overwrite prefered conifg
 [ -n $ZSH ] && source $ZSH/oh-my-zsh.sh
 # }}}
-# path {{{
+## path {{{
 # On MacOS, PATH is updated by /usr/libexec/path_helper after loading .zshenv
 # so PATH is configured here.
 local path_candidates=(
@@ -159,10 +159,13 @@ RPROMPT=''
 # }}}
 ## options {{{
 ##  history {{{
-setopt hist_no_store
-setopt hist_ignore_dups
+setopt hist_no_store # do not store history command
+setopt hist_ignore_dups # ignore if same as the previous command
 setopt hist_ignore_space
-setopt inc_append_history
+setopt hist_reduce_blanks # remove unnecessary spaces
+setopt inc_append_history # add history incrementally
+setopt no_share_history # do not share history among terminals
+unsetopt share_history
 setopt append_history
 # }}}
 ##  directory {{{
@@ -308,4 +311,8 @@ docker-rm-exited() {
 docker-rmi-none() {
   docker images -f dangling=true -q | xargs -r docker rmi
 }
+# }}}
+## typeset {{{
+# Clean up the environmental variable, that might be messed up by apple's path_helper
+typeset -U path cdpath fpath manpath
 # }}}

@@ -39,9 +39,6 @@ if [[ -n "${TMUX}" ]]; then
   export TERM=xterm-256color
 fi
 # }}}
-## typeset {{{
-typeset -U path cdpath fpath manpath
-# }}}
 ## HOME{{{
 case "${OSTYPE}" in
   darwin*)
@@ -163,4 +160,4 @@ fi
 ## zshenv.local {{{
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 # }}}
-#
+
