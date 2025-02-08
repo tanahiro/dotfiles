@@ -61,9 +61,6 @@ if [[ -n "${TMUX}" ]]; then
   export TERM=xterm-256color
 fi
 # }}}
-## typeset {{{
-typeset -U path cdpath fpath manpath
-# }}}
 ## HOME{{{
 case "${OSTYPE}" in
   darwin*)
@@ -162,7 +159,7 @@ export TEXINPUTS=~/src/tex/:${TEXINPUTS}
 export PIPENV_PYTHON=${PYENV_ROOT}/shims/python
 # }}}
 ## Go {{{
-export GOPATH=${HOME}/src/go
+export GOPATH=${HOME}/src/golang
 export GOENV_ROOT=${HOME}/.goenv
 export GOENV_DISABLE_GOPATH=1
 #export GOPRIVATE=
@@ -172,6 +169,11 @@ export DEMO_TLS_CA_STORE=system
 
 if [[ -f /etc/ssl/certs/ca-certificates.crt ]]; then
   export DENO_CERT=/etc/ssl/certs/ca-certificates.crt
+fi
+# }}}
+# # cargo {{{
+if [[ -f ${HOME}/.cargo/env ]]; then
+  . ${HOME}/.cargo/env
 fi
 # }}}
 ## WSL {{{
@@ -185,4 +187,3 @@ fi
 ## zshenv.local {{{
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 # }}}
-. "$HOME/.cargo/env"

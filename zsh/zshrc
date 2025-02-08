@@ -11,6 +11,37 @@
 # Not to overwrite prefered conifg
 [ -n $ZSH ] && source $ZSH/oh-my-zsh.sh
 # }}}
+## path {{{
+# On MacOS, PATH is updated by /usr/libexec/path_helper after loading .zshenv
+# so PATH is configured here.
+local path_candidates=(
+  ${HOME}/.deno/bin
+  ${HOME}/.rbenv/bin
+  ${HOME}/.pyenv/bin
+  ${HOME}/.nodenv/bin
+  ${GOPATH}/bin
+  /opt/homebrew/bin
+  /opt/homebrew/sbin
+  /usr/local/bin
+  /usr/local/sbin
+  /usr/bin
+  /usr/sbin
+  /bin
+  /sbin
+  /usr/games
+  /usr/local/games
+  /snap/bin
+)
+
+local user_path
+
+for d in ${path_candidates}; do
+  if [ -d "${d}" ]; then
+    user_path="${user_path}:${d}"
+  fi
+done
+PATH=${user_path}:$PATH
+# }}}
 ## history {{{
 HISTFILE=~/.zhistory
 SAVEHIST=5000
@@ -52,6 +83,8 @@ alias vi='vim'
 alias ssh='ssh -Y'
 
 alias grep='grep --color=always'
+
+alias tmux='tmux -u'
 
 case "${OSTYPE}" in
   darwin*)
@@ -124,12 +157,14 @@ RPROMPT=''
 # }}}
 ## options {{{
 ##  history {{{
-setopt hist_no_store
-setopt hist_ignore_dups
+setopt hist_no_store # do not store history command
+setopt hist_ignore_dups # ignore if same as the previous command
 setopt hist_ignore_space
-setopt hist_reduce_blanks
+setopt hist_reduce_blanks # remove unnecessary spaces
 setopt hist_save_no_dups
-setopt inc_append_history
+setopt inc_append_history # add history incrementally
+setopt no_share_history # do not share history among terminals
+unsetopt share_history
 setopt append_history
 # }}}
 ##  directory {{{
@@ -219,9 +254,6 @@ if [[ -d "${GOENV_ROOT}" ]]; then
   eval "$(goenv init - --no-rehash)"
 fi
 # }}}
-## deno {{{
-[ -d ~/.demo ] && export PATH=${PATH}:${HOME}/.deno/bin
-# }}}
 ## local setting {{{
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 # }}}
@@ -278,4 +310,8 @@ docker-rm-exited() {
 docker-rmi-none() {
   docker images -f dangling=true -q | xargs -r docker rmi
 }
+# }}}
+## typeset {{{
+# Clean up the environmental variable, that might be messed up by apple's path_helper
+typeset -U path cdpath fpath manpath
 # }}}
