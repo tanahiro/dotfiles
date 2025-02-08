@@ -20,6 +20,8 @@ optional_path=(
   ~/.deno/bin
   ~/.rbenv/bin
   ~/.pyenv/bin
+  ~/.cargo/bin
+  "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 )
 
 for d in $optional_path; do
@@ -183,3 +185,4 @@ fi
 ## zshenv.local {{{
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
 # }}}
+. "$HOME/.cargo/env"
