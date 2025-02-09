@@ -24,3 +24,5 @@
   force-push = push --force-with-lease --force-if-includes
 
 # vim: ft=.gitconfig
+[init]
+	defaultBranch = main
