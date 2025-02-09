@@ -146,8 +146,8 @@ case ${UID} in
   PROMPT2="%{${fg[red]}%}%_->%{${reset_color}%}"
   ;;
 *)
-  PROMPT="%j [%F{020}%K{190}%U%m%{${reset_color}%}%k%f:%~%u]% %E %{${fg[yellow]}%}$(git_repo_info)%{${reset_color}%}
-%h%#>"
+  PROMPT='%j [%F{020}%K{190}%U%m%{${reset_color}%}%k%f:%~%u]% %E %{${fg[yellow]}%}$(git_repo_info)%{${reset_color}%}
+%h%#>'
   PROMPT2="%_->"
   ;;
 esac
