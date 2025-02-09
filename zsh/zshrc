@@ -19,7 +19,7 @@ local path_candidates=(
   ${HOME}/.rbenv/bin
   ${HOME}/.pyenv/bin
   ${HOME}/.nodenv/bin
-  ${GOPATH}/bin
+  ${GOBIN}
   /opt/homebrew/bin
   /opt/homebrew/sbin
   /usr/local/bin

@@ -162,6 +162,7 @@ export PIPENV_PYTHON=${PYENV_ROOT}/shims/python
 export GOPATH=${HOME}/src/golang
 export GOENV_ROOT=${HOME}/.goenv
 export GOENV_DISABLE_GOPATH=1
+export GOBIN=${GOPATH}/bin
 #export GOPRIVATE=
 # }}}
 ## deno {{{
