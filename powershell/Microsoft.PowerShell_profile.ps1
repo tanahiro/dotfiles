@@ -38,14 +38,23 @@ if ($PSStyle) {
 }
 
 # Alias
-new-item alias:gvim -value "C:/opt/vim//gvim.exe" | Out-Null
-new-item alias:vi -value "C:/opt/vim//vim.exe" | Out-Null
+if (Test-Path -Path "C:/opt/vim/gvim.exe" -PathType Leaf) {
+  new-item alias:gvim -value "C:/opt/vim//gvim.exe" | Out-Null
+}
+if (Test-Path -Path "C:/opt/vim/vim.exe" -PathType Leaf) {
+  new-item alias:vi -value "C:/opt/vim//vim.exe" | Out-Null
+}
 new-alias which get-command
 new-alias open invoke-item
 
 # Functions
 function Reset-Color {
   [Console]::ResetColor()
+}
+
+if (Test-Path -Path "$PSScriptRoot\Microsoft.PowerShell_profile.local.ps1" -PathType Leaf) {
+  echo "loading local"
+  . "$PSScriptRoot\Microsoft.PowerShell_profile.local.ps1"
 }
 
 echo "profile loaded"

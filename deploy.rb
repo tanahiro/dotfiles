@@ -8,6 +8,7 @@ DEFAULT_TARGETS = %w[
   tmux
   vi
   zsh
+  powershell
 ].freeze
 
 OS = RbConfig::CONFIG['target_os']
@@ -133,6 +134,22 @@ def deploy_zsh
   end
 end
 
+def deploy_powershell
+  if OS =~ /mingw/
+    print("\nDeploying powershell configuration files...")
+
+    powershell_dir = File.join(__dir__, "powershell")
+
+    target_dir = File.join(@options[:dir], "Documents", "PowerShell")
+    mkdir(target_dir)
+
+    src = [File.join(powershell_dir, "Microsoft.PowerShell_profile.ps1")]
+    dst = [File.join(target_dir, "Microsoft.PowerShell_profile.ps1")]
+
+    deploy(src, dst)
+  end
+end
+
 def execute(target)
   method_name = "deploy_#{target}".to_sym
   send(method_name)
@@ -149,7 +166,7 @@ def main
     @options[:target] = [@options[:target]] unless @options[:target].is_a?(Array)
 
     @options[:target].each do |target|
-      raise "Unknown target: #{target}" unless DEFAULT_TARGTES.includ?(target)
+      raise "Unknown target: #{target}" unless DEFAULT_TARGETS.include?(target)
 
       execute(target)
     end
